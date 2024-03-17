@@ -17,6 +17,8 @@ class Server {
       USR: "/usuarios",
       COL: "/colaborador",
       SYSTEM: "/SYSTEM",
+      GADM:"/GADM",
+      CLNT:"/cliente"
     };
 
     //middlewares
@@ -48,12 +50,16 @@ class Server {
   routes() {
     
     this.app.use(this.paths.SYSTEM, require("../Routes/System"));
+    this.app.use(this.paths.USR, require("../Routes/User"));
+    this.app.use(this.paths.GADM, require("../Routes/GADM"));
+    this.app.use(this.paths.CLNT, require("../Routes/Cliente"));
+    
   }
 
   listen() {
     const serverHttp = http.createServer(this.app);
-    serverHttp.listen(this.port, this.ip);
-    serverHttp.on('listening', () => console.info(`Notes App running at http://${this.ip}:${this.port}`));
+serverHttp.listen(this.port, this.ip);
+serverHttp.on('listening', () => console.info(`Notes App running at http://${this.ip}:${this.port}`));
   
     /*
 const serverHttp = http.createServer(this.app);
