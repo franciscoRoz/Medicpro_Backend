@@ -18,6 +18,7 @@ const { CrearCargo } = require("../Controller/AdmPersonas/POST/CreateCargo");
 const { ObtenerCargos } = require("../Controller/AdmPersonas/GET/ObtenerCargos");
 const { EliminarCargo } = require("../Controller/AdmPersonas/POST/EliminarCargo");
 const { Loginusuario } = require("../Controller/AdmPersonas/POST/Loginusuario");
+const { GetproductosCompletoProveedor } = require("../Controller/GestAdm-Stock/GET/Proveedor/GetProuctoCompletoProveedor");
 
 
 
@@ -37,6 +38,7 @@ router.get('/obtenerproveedores',Getproveedores)
 router.post('/eliminarproveedor',EliminarProveedor)
 router.post('/actualizarproveedor',ActualizarProveedor)
 router.get('/getproductos',Getproductosordenado)
+router.get('/obtenerproductosproveedor',GetproductosCompletoProveedor)
 
 //Cargos
 
