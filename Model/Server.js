@@ -18,7 +18,9 @@ class Server {
       COL: "/colaborador",
       SYSTEM: "/SYSTEM",
       GADM:"/GADM",
-      CLNT:"/cliente"
+      CLNT:"/cliente",
+      VNTAS:'/Ventas',
+      DYF:'/despachosyfacturas'
     };
 
     //middlewares
@@ -53,6 +55,8 @@ class Server {
     this.app.use(this.paths.USR, require("../Routes/User"));
     this.app.use(this.paths.GADM, require("../Routes/GADM"));
     this.app.use(this.paths.CLNT, require("../Routes/Cliente"));
+    this.app.use(this.paths.VNTAS, require("../Routes/Ventas"));
+    this.app.use(this.paths.DYF, require("../Routes/DespachosyFacturas"));
     
   }
 

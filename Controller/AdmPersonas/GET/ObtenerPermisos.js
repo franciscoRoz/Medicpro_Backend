@@ -16,9 +16,9 @@ const ObtenerPermisos = async (req, res = response) => {
           items: ["Lista Productos", "Manejo de Stock"],
         },
         {
-          name: "Ventas y Facturas",
+          name: "Ventas",
           icon: "https://res.cloudinary.com/dgi90lgbq/image/upload/v1705344193/vj8jq6tlf1ga7kagnznp.png",
-          items: ["Ingreso Ventas", "Adm. de Facturas"],
+          items: ["Ingreso Orden de Compra", "Adm. de Orden de Compra"],
         },{
           name: "Gest. Administrativa",
           icon: "https://res.cloudinary.com/dgi90lgbq/image/upload/v1710511171/g7a2lstlqmpipd9zpmba.png",
