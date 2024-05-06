@@ -8,7 +8,7 @@ const ObtenerPermisos = async (req, res = response) => {
         {
           name: "Adquisición",
           icon: "https://res.cloudinary.com/dgi90lgbq/image/upload/v1705253502/vozvbmialf33lfqbahiv.png",
-          items: ["Generar adquisicion asia", "Generar adquisicion america", "Seguimiento Pedidos",],
+          items: ["Generar adquisicion comex", "Seguimiento Pedidos",],
         },
         {
           name: "Control De Stock",

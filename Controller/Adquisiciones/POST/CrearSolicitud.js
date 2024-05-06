@@ -1,5 +1,7 @@
 const { response } = require("express");
 const { InsertarItem } = require("../../../Component/MongoDB/InsertarItem");
+const { ObtenerItem } = require("../../../Component/MongoDB/ObtenerItem");
+const { ActualizarItem } = require("../../../Component/MongoDB/ActualizarItem");
 
 
 const CrearSolicitud = async (req, res = response) => {
@@ -35,10 +37,11 @@ const CrearSolicitud = async (req, res = response) => {
         ValorDolar: producto.ValorDolar,
         Codigo: producto.Codigo
       })),
-      estado: "Pendiente",
+      estado: "Producción",
       envio: {
         shipping: "",
         dolarshipping: "",
+        pdolarshipping:"",
         pesosshipping: "",
         fechaembarque: "",
         fechaarribo: "",
@@ -48,7 +51,10 @@ const CrearSolicitud = async (req, res = response) => {
         nasignacion: "",
         totalpesostransporte: "",
         valoraduana: "",
-        fechacierre: ""
+        fechacierre: "",
+        valordolartierra:"",
+        seguroshipping:""
+
       },
       documentos:[
       {titulo:"Importacion",nombre:"",url:""},
@@ -61,8 +67,14 @@ const CrearSolicitud = async (req, res = response) => {
       {titulo:"Documento2",nombre:"",url:""}]
     };
   
-  // Salida
-  console.log(arregloTransformado);
+     objetoOriginal.productos.map(async(producto)=> {
+      let res = await ObtenerItem({ estado:"Visible",nombre: producto.Producto},"Productos")
+      res[0].stocktransito=parseInt(res[0].stocktransito)+parseInt(producto.Cantidad)
+      ActualizarItem(res[0],"Productos",res[0]._id)
+      console.log();
+     }
+    )
+
   InsertarItem(arregloTransformado,"Adquisiciones")
     res.send({ succes: true, ok:"OK" }).status(200);
   } catch (e) {

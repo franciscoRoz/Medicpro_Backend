@@ -15,7 +15,7 @@ let ObtenerItem = async (filtro={}, nombrecollection) => {
       const resultados = await coleccion.find(filtro).toArray();
   
       console.log("Resultados de la búsqueda:");
-      console.log(resultados);
+      
   
       return resultados;
     } catch (err) {
