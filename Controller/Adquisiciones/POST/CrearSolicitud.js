@@ -53,7 +53,8 @@ const CrearSolicitud = async (req, res = response) => {
         valoraduana: "",
         fechacierre: "",
         valordolartierra:"",
-        seguroshipping:""
+        seguroshipping:"",
+        bl:""
 
       },
       documentos:[
