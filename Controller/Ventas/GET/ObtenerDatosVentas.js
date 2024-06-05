@@ -4,7 +4,7 @@ const { ObtenerItem } = require("../../../Component/MongoDB/ObtenerItem");
 const ObtenerdatosVentas = async (req, res = response) => {
   try {
     let Productos = await ObtenerItem({ estado: "Visible" }, "Productos");
-    let Usuario= await ObtenerItem({hidden:false},"Usuarios");
+    let Usuario= await ObtenerItem({hidden:false,cargo:"Vendedor"},"Usuarios");
     let Clientes= await ObtenerItem({hidden:false},"Clientes");
     const nuevoFormatoUsuarios = {};
     const nuevoFormatoClientes = {};

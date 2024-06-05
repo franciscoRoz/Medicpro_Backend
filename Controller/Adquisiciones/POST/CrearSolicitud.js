@@ -7,6 +7,10 @@ const { ActualizarItem } = require("../../../Component/MongoDB/ActualizarItem");
 const CrearSolicitud = async (req, res = response) => {
   try {
     let objetoOriginal = req.body;
+  
+    if((await ObtenerItem({ noperacion: objetoOriginal.noperacion},"Adquisiciones")).length>0){
+      return res.send({ succes: false, estado:"Adquisición ya creada" }).status(404);
+    }
    
    const arregloTransformado = 
     {
@@ -18,6 +22,7 @@ const CrearSolicitud = async (req, res = response) => {
       opeusd: objetoOriginal.opeusd,
       swift: objetoOriginal.swift,
       toperacion: objetoOriginal.toperacion,
+      pais:objetoOriginal.pais,
       abonos: [
         {
           abono: objetoOriginal.abono,
@@ -68,16 +73,24 @@ const CrearSolicitud = async (req, res = response) => {
       {titulo:"Documento2",nombre:"",url:""}]
     };
   
-     objetoOriginal.productos.map(async(producto)=> {
-      let res = await ObtenerItem({ estado:"Visible",nombre: producto.Producto},"Productos")
-      res[0].stocktransito=parseInt(res[0].stocktransito)+parseInt(producto.Cantidad)
-      ActualizarItem(res[0],"Productos",res[0]._id)
-      console.log();
-     }
-    )
+
+    try {
+      let cargastock= objetoOriginal.productos.map(async(producto)=> {
+        let res = await ObtenerItem({ estado:"Visible",nombre: producto.Producto},"Productos")
+          res[0].stocktransito=parseInt(res[0].stocktransito)+parseInt(producto.Cantidad)
+        await ActualizarItem(res[0],"Productos",res[0]._id)
+       }
+      )
+
+      await Promise.all(cargastock);
+    } catch (error) {
+      return res.send({ succes: false, estado:"Productos no encontrados, validar lista de proveedores" }).status(404);
+    }
+     
+    
 
   InsertarItem(arregloTransformado,"Adquisiciones")
-    res.send({ succes: true, ok:"OK" }).status(200);
+    res.send({ succes: true, estado:"OK" }).status(200);
   } catch (e) {
     console.log(e);
     res.send({

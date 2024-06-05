@@ -14,9 +14,6 @@ let ObtenerItem = async (filtro={}, nombrecollection) => {
       // Utiliza el método find para buscar datos
       const resultados = await coleccion.find(filtro).toArray();
   
-      console.log("Resultados de la búsqueda:");
-      
-  
       return resultados;
     } catch (err) {
       console.error("Error al conectar a MongoDB:", err);
