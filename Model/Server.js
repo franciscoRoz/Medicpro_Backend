@@ -63,9 +63,10 @@ class Server {
   }
 
   listen() {
-    this.app.listen(this.port, () => {
-      console.log(`servidor conectado en el puerto, ${this.port}`);
-    });
+    const serverHttp = http.createServer(this.app);
+serverHttp.listen(this.port, this.ip);
+serverHttp.on('listening', () => console.info(`Notes App running at http://${this.ip}:${this.port}`));
+
     /*
 const serverHttp = http.createServer(this.app);
 serverHttp.listen(this.port, this.ip);
