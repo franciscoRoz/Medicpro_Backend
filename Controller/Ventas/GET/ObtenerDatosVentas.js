@@ -6,21 +6,23 @@ const ObtenerdatosVentas = async (req, res = response) => {
     let Productos = await ObtenerItem({ estado: "Visible" }, "Productos");
     let Usuario= await ObtenerItem({hidden:false,cargo:"Vendedor"},"Usuarios");
     let Clientes= await ObtenerItem({hidden:false},"Clientes");
+    let Tipoventa= await ObtenerItem({hidden:false},"TipoVenta");
     const nuevoFormatoUsuarios = {};
     const nuevoFormatoClientes = {};
+    const nuevoFormatotipoventa = {};
     Usuario.forEach((item) => {
         nuevoFormatoUsuarios[item.nombres] = item.nombres;
-    });
-    console.log(nuevoFormatoUsuarios);
-    
-    
+    });  
     Clientes.forEach((item) => {
         nuevoFormatoClientes[item.nombre] = item.nombre;
     });
+    Tipoventa.forEach((item) => {
+      nuevoFormatotipoventa[item.nombre] = item.nombre;
+  });
 
 
 
-    res.send({Productos,Usuarios:nuevoFormatoUsuarios,Clientes:nuevoFormatoClientes}).status(200);
+    res.send({Productos,Usuarios:nuevoFormatoUsuarios,Clientes:nuevoFormatoClientes,Tipoventa:nuevoFormatotipoventa}).status(200);
   } catch (e) {
     console.log(e);
     res.send({

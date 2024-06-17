@@ -20,7 +20,8 @@ class Server {
       GADM:"/GADM",
       CLNT:"/cliente",
       VNTAS:'/Ventas',
-      DYF:'/despachosyfacturas'
+      DYF:'/despachosyfacturas',
+      CONF:'/Conf'
     };
 
     //middlewares
@@ -57,13 +58,14 @@ class Server {
     this.app.use(this.paths.CLNT, require("../Routes/Cliente"));
     this.app.use(this.paths.VNTAS, require("../Routes/Ventas"));
     this.app.use(this.paths.DYF, require("../Routes/DespachosyFacturas"));
+    this.app.use(this.paths.CONF, require("../Routes/Configuraciones"));
     
   }
 
   listen() {
-    const serverHttp = http.createServer(this.app);
-    serverHttp.listen(this.port, this.ip);
-    serverHttp.on('listening', () => console.info(`Notes App running at http://${this.ip}:${this.port}`));
+    this.app.listen(this.port, () => {
+      console.log(`servidor conectado en el puerto, ${this.port}`);
+    });
     /*
 const serverHttp = http.createServer(this.app);
 serverHttp.listen(this.port, this.ip);
