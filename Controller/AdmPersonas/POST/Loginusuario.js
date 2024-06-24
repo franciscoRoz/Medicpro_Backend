@@ -8,7 +8,7 @@ const Loginusuario = async (req, res = response) => {
       { loginName: user, password, hidden: false, estado: "Habilitado" },
       "Usuarios"
     );
-    console.log(result.length);
+   
     if (result.length == 1) {
       console.log(result[0].cargo);
       let Cargo = await ObtenerItem(
@@ -17,7 +17,9 @@ const Loginusuario = async (req, res = response) => {
       );
       if (Cargo.length == 1) {
         console.log(Cargo);
-        return res.send(Cargo[0]).status(200);
+        return res.send(
+          {cargo:Cargo[0],user:result[0].nombres,rut:result[0].rut}
+        ).status(200);
       }
       return res
         .send({
