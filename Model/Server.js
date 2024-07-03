@@ -37,7 +37,7 @@ class Server {
 
     // Lectura y parseo del body
     this.app.use(express.json());
-
+  
     // Directorio Público
     this.app.use(express.static("public"));
     // Fileupload - Carga de archivos
@@ -63,10 +63,10 @@ class Server {
   }
 
   listen() {
+   
     const serverHttp = http.createServer(this.app);
     serverHttp.listen(this.port, this.ip);
     serverHttp.on('listening', () => console.info(`Notes App running at http://${this.ip}:${this.port}`));
-    
     /*
 const serverHttp = http.createServer(this.app);
 serverHttp.listen(this.port, this.ip);

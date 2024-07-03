@@ -11,11 +11,6 @@ const ObtenerPermisos = async (req, res = response) => {
           items: ["Generar adquisicion comex", "Seguimiento Pedidos",],
         },
         {
-          name: "Control De Stock",
-          icon: "https://res.cloudinary.com/dgi90lgbq/image/upload/v1705253503/lpdkapxxg6jbfltbsewg.png",
-          items: ["Lista Productos", "Manejo de Stock"],
-        },
-        {
           name: "Ventas",
           icon: "https://res.cloudinary.com/dgi90lgbq/image/upload/v1705344193/vj8jq6tlf1ga7kagnznp.png",
           items: ["Ingreso Orden de Compra", "Adm. de Orden de Compra"],
@@ -35,6 +30,10 @@ const ObtenerPermisos = async (req, res = response) => {
           name: "Bodega",
           icon: "https://res.cloudinary.com/dgi90lgbq/image/upload/v1710511326/rvlyhnoc7bydgmjo1ygw.png",
           items: ["Envios", "Rutas"],
+        },{
+          name: "Control De Stock",
+          icon: "https://res.cloudinary.com/dgi90lgbq/image/upload/v1705253503/lpdkapxxg6jbfltbsewg.png",
+          items: ["Lista Productos", "Manejo de Stock"],
         }
       ];
     res.send(permisos).status(200);
