@@ -1,11 +1,13 @@
 const { response } = require("express");
 const { ActualizarItem } = require("../../../Component/MongoDB/ActualizarItem");
+const { Now } = require("../../../Utility/LocalTime");
 
 
 const EliminarCliente = async (req, res = response) => {
   try {
     let Cliente = req.body;
     Cliente.hidden=true
+    Cliente.updateAt=Now()
     ActualizarItem(Cliente,"Clientes",Cliente._id)
     res.send({ succes: true, ok:"OK" }).status(200);
   } catch (e) {

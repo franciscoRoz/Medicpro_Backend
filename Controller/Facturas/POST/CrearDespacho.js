@@ -5,7 +5,7 @@ const { Now } = require("../../../Utility/LocalTime");
 const CrearDespacho = async (req, res = response) => {
   try {
     let Despacho = req.body;
-    Despacho.createAt = Now();
+    Despacho.createdAt = Now();
     InsertarItem(Despacho, "Despacho");
     res.send({ succes: true, ok: "OK" }).status(200);
   } catch (e) {

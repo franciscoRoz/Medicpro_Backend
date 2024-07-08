@@ -1,11 +1,13 @@
 const { response } = require("express");
 const { InsertarItem } = require("../../../Component/MongoDB/InsertarItem");
+const { Now } = require("../../../Utility/LocalTime");
 
 const CrearProductomasivo = async (req, res = response) => {
   try {
     let Productos = req.body;
     for (let i = 0; i < Productos.length; i++) {
-        await InsertarItem(Productos[i], "Productos");
+
+        await InsertarItem({...Productos[i],createdAt:Now()}, "Productos");
       }
 
     res.send({ succes: true, ok: "OK" }).status(200);

@@ -2,6 +2,7 @@ const { response } = require("express");
 const { InsertarItem } = require("../../../Component/MongoDB/InsertarItem");
 const { ObtenerItem } = require("../../../Component/MongoDB/ObtenerItem");
 const { ActualizarItem } = require("../../../Component/MongoDB/ActualizarItem");
+const { Now } = require("../../../Utility/LocalTime");
 
 
 const CrearSolicitud = async (req, res = response) => {
@@ -11,9 +12,16 @@ const CrearSolicitud = async (req, res = response) => {
     if((await ObtenerItem({ noperacion: objetoOriginal.noperacion},"Adquisiciones")).length>0){
       return res.send({ succes: false, estado:"Adquisición ya creada" }).status(404);
     }
-   
+    let arreglodeProductos=objetoOriginal.productos.map(producto => ({
+      Proveedor: producto.Proveedor,
+      Producto: producto.Producto,
+      Cantidad: producto.Cantidad,
+      ValorDolar: producto.ValorDolar,
+      Codigo: producto.Codigo
+    }))
    const arregloTransformado = 
-    {
+    { 
+      createdAt:Now(),
       noperacion: objetoOriginal.noperacion,
       fecha: objetoOriginal.fecha,
       vdolar: objetoOriginal.vdolar,
@@ -35,13 +43,8 @@ const CrearSolicitud = async (req, res = response) => {
           vdolar: objetoOriginal.vdolar
         }
       ],
-      productos: objetoOriginal.productos.map(producto => ({
-        Proveedor: producto.Proveedor,
-        Producto: producto.Producto,
-        Cantidad: producto.Cantidad,
-        ValorDolar: producto.ValorDolar,
-        Codigo: producto.Codigo
-      })),
+      productos: arreglodeProductos,
+      metadataProducto: arreglodeProductos,
       estado: "Producción",
       envio: {
         shipping: "",
@@ -87,7 +90,7 @@ const CrearSolicitud = async (req, res = response) => {
       return res.send({ succes: false, estado:"Productos no encontrados, validar lista de proveedores" }).status(404);
     }
      
-    
+
 
   InsertarItem(arregloTransformado,"Adquisiciones")
     res.send({ succes: true, estado:"OK" }).status(200);

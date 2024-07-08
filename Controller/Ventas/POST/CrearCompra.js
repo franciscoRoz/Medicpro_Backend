@@ -1,6 +1,7 @@
 const { response } = require("express");
 const { InsertarItem } = require("../../../Component/MongoDB/InsertarItem");
 const { ObtenerItem } = require("../../../Component/MongoDB/ObtenerItem");
+const { Now } = require("../../../Utility/LocalTime");
 
 const CrearOrdenDeCompra = async (req, res = response) => {
   try {
@@ -39,6 +40,7 @@ const CrearOrdenDeCompra = async (req, res = response) => {
     }
 
     console.log(ordendecompra);
+    ordendecompra.createdAt=Now()
     await InsertarItem(ordendecompra, "OrdenesDeCompra");
     res.send({ succes: true, ok: "OK" }).status(200);
   } catch (e) {

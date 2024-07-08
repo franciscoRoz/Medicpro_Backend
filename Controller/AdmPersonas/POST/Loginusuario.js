@@ -10,11 +10,13 @@ const Loginusuario = async (req, res = response) => {
     );
    
     if (result.length == 1) {
-      console.log(result[0].cargo);
+    
       let Cargo = await ObtenerItem(
         { nombrecargo: result[0].cargo, hidden: false },
         "Cargos"
       );
+      console.log(result);
+      
       if (Cargo.length == 1) {
         console.log(Cargo);
         return res.send(

@@ -1,6 +1,7 @@
 const { response } = require("express");
 const { InsertarItem } = require("../../../Component/MongoDB/InsertarItem");
 const { ObtenerItem } = require("../../../Component/MongoDB/ObtenerItem");
+const { Now } = require("../../../Utility/LocalTime");
 
 const CrearShipper = async (req, res = response) => {
   try {
@@ -18,7 +19,7 @@ const CrearShipper = async (req, res = response) => {
         .send({ succes: false, estado: "Shipper ya creada" })
         .status(404);
     }
-
+    objetoOriginal.createdAt=Now()
     InsertarItem(objetoOriginal, "Shippers");
     res.send({ succes: true, estado: "OK" }).status(200);
   } catch (e) {

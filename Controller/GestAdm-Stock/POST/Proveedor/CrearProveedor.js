@@ -1,10 +1,11 @@
 const { response } = require("express");
 const { InsertarItem } = require('../../../../Component/MongoDB/InsertarItem');
+const { Now } = require("../../../../Utility/LocalTime");
 
 const CrearProveedor = async (req, res = response) => {
   try {
     let proveedor = req.body;
-    console.log(proveedor);
+    proveedor.createdAt=Now()
     InsertarItem(proveedor, "Proveedores");
     res.send({ succes: true, ok: "OK" }).status(200);
   } catch (e) {

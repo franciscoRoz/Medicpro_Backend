@@ -2,6 +2,7 @@ const { response } = require("express");
 const { ActualizarItem } = require("../../../Component/MongoDB/ActualizarItem");
 const { ObtenerItem } = require("../../../Component/MongoDB/ObtenerItem");
 const { ObjectId } = require("mongodb");
+const { Now } = require("../../../Utility/LocalTime");
 const insertarStock = async (req, res = response) => {
   try {
     let { id, cantidad, data,detalle } = req.body;
@@ -20,9 +21,9 @@ const insertarStock = async (req, res = response) => {
     nuevoproducto.detalles.push(detalle)
     console.log(nuevoproducto);
     
-    nuevoproducto={nuevoproducto,stocktransito:parseInt(producto[0].stocktransito)-cantidad,stock:parseInt(producto[0].stock)+parseInt(cantidad)}
-    console.log(nuevoproducto);
-
+    nuevoproducto={nuevoproducto,stocktransito:parseInt(producto[0].stocktransito)-cantidad,stock:parseInt(producto[0].stock)+parseInt(cantidad),createdAt:Now()}
+    
+    
     await ActualizarItem(nuevoproducto, "Productos", id);
     await ActualizarItem(data, "Adquisiciones", data._id);
     res.send({ succes: true, ok: "OK" }).status(200);
