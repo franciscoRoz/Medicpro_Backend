@@ -6,7 +6,15 @@ const { Now } = require("../../../Utility/LocalTime");
 const CrearOrdenDeCompra = async (req, res = response) => {
   try {
     let ordendecompra = req.body;
-
+    console.log("a");
+    const venta = await ObtenerItem(
+      { hidden: false, ordencompra: ordendecompra.ordencompra },
+      "OrdenesDeCompra"
+    );
+    console.log(venta);
+    if (venta.length > 0) {
+      return res.send({ succes: false, estado: "Oden ya creada" }).status(401);
+    }
     for (let i = 0; i < ordendecompra.Productos.length; i++) {
       const producto = ordendecompra.Productos[i];
       try {
@@ -39,8 +47,7 @@ const CrearOrdenDeCompra = async (req, res = response) => {
       );
     }
 
-    console.log(ordendecompra);
-    ordendecompra.createdAt=Now()
+    ordendecompra.createdAt = Now();
     await InsertarItem(ordendecompra, "OrdenesDeCompra");
     res.send({ succes: true, ok: "OK" }).status(200);
   } catch (e) {
