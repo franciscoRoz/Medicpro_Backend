@@ -13,15 +13,11 @@ const ObtenerPermisos = async (req, res = response) => {
         {
           name: "Ventas",
           icon: "https://res.cloudinary.com/dgi90lgbq/image/upload/v1705344193/vj8jq6tlf1ga7kagnznp.png",
-          items: ["Ingreso Orden de Compra", "Adm. de Orden de Compra"],
+          items: ["Ingreso Orden de Compra", "Adm. de Orden de Compra","Despacho Bodega","Ingresar Factura","Facturas"],
         },{
           name: "Gest. Administrativa",
           icon: "https://res.cloudinary.com/dgi90lgbq/image/upload/v1710511171/g7a2lstlqmpipd9zpmba.png",
           items: ["Clientes","Productos","Proveedores"],
-        },{
-          name: "Despachos Y Facturas",
-          icon: "https://res.cloudinary.com/dgi90lgbq/image/upload/v1710511171/g7a2lstlqmpipd9zpmba.png",
-          items: ["Despacho Bodega","Ingresar Factura","Facturas"],
         },{
           name: "Adm. Personas",
           icon: "https://res.cloudinary.com/dgi90lgbq/image/upload/v1710511326/rvlyhnoc7bydgmjo1ygw.png",
@@ -29,7 +25,7 @@ const ObtenerPermisos = async (req, res = response) => {
         },{
           name: "Bodega",
           icon: "https://res.cloudinary.com/dgi90lgbq/image/upload/v1710511326/rvlyhnoc7bydgmjo1ygw.png",
-          items: ["Envios", "Rutas"],
+          items: ["Despachos","Picking", "Rutas"],
         },{
           name: "Control De Stock",
           icon: "https://res.cloudinary.com/dgi90lgbq/image/upload/v1705253503/lpdkapxxg6jbfltbsewg.png",

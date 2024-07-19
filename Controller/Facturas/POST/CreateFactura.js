@@ -6,6 +6,7 @@ const { Now } = require("../../../Utility/LocalTime");
 const CrearFactura = async (req, res = response) => {
   try {
     let Factura = req.body;
+    console.log(Factura);
     Factura.createdAt=Now();
   InsertarItem(Factura,"Facturas")
     res.send({ succes: true, ok:"OK" }).status(200);
