@@ -22,6 +22,7 @@ const { Loginusuario } = require("../Controller/AdmPersonas/POST/Loginusuario");
 const { GetproductosCompletoProveedor } = require("../Controller/GestAdm-Stock/GET/Proveedor/GetProuctoCompletoProveedor");
 const { insertarStock } = require("../Controller/GestAdm-Stock/POST/InsertarStock");
 const { CrearProductomasivo } = require("../Controller/GestAdm-Stock/POST/CrearProductoMasivo");
+const { ActualizarProducto_Item } = require("../Controller/GestAdm-Stock/POST/ActualizarStockProducto");
 
 
 
@@ -35,6 +36,7 @@ router.post("/eliminarproducto",EliminarProducto)
 router.get("/obtenerstock/:id",Get_Stock)
 router.post("/insertarStock",insertarStock)
 router.post("/crearproductomasivo", CrearProductomasivo);
+router.post("/actualizaritem",ActualizarProducto_Item)
 
 
 //Proveedores

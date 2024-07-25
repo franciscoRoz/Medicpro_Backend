@@ -48,6 +48,7 @@ const CrearOrdenDeCompra = async (req, res = response) => {
     }
 
     ordendecompra.createdAt = Now();
+    ordendecompra.estado = "Pendiente";
     await InsertarItem(ordendecompra, "OrdenesDeCompra");
     res.send({ succes: true, ok: "OK" }).status(200);
   } catch (e) {

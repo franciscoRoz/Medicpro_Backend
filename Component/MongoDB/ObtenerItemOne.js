@@ -1,7 +1,7 @@
-const { MongoClient } = require("mongodb");
+const { MongoClient ,ObjectId} = require("mongodb");
 require("dotenv").config();
 
-let ObtenerItemordenados = async (filtro=[], nombrecollection) => {
+let ObtenerItemOne = async (id, nombrecollection) => {
     const client = new MongoClient(process.env.URL_MONGO);
 
     try {
@@ -10,11 +10,11 @@ let ObtenerItemordenados = async (filtro=[], nombrecollection) => {
   
       const db = client.db();
       const coleccion = db.collection(nombrecollection);
-      const resultado = await coleccion.aggregate(filtro).toArray();
-  
+      const filtro = { _id: new ObjectId(id) };
+      // Utiliza el método find para buscar datos
+      const resultados = await coleccion.findOne(filtro);
 
-  
-      return resultado;
+      return resultados;
     } catch (err) {
       console.error("Error al conectar a MongoDB:", err);
       throw err;
@@ -25,5 +25,5 @@ let ObtenerItemordenados = async (filtro=[], nombrecollection) => {
 };
 
 module.exports = {
-    ObtenerItemordenados,
+  ObtenerItemOne,
 };

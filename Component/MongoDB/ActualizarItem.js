@@ -17,7 +17,7 @@ let ActualizarItem = async (objeto, nombrecollection,id) => {
 
     const resultado = await db.collection(nombrecollection).updateOne(filtro, nuevoValor);
     
-    console.log(resultado);
+   
   } catch (err) {
     console.error("Error al conectar a MongoDB:", err);
   } finally {
