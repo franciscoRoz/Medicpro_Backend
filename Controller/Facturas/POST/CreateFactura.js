@@ -40,8 +40,8 @@ const CrearFactura = async (req, res = response) => {
       ? (Factura.estado = "Pagado")
       : (Factura.estado = "Pago Parcial");
     Factura.createdAt = Now();
-    Factura.infoOrdenCompra = new ObjectId(Factura.infoOrdenCompra);
-    InsertarItem(Factura, "Facturas");
+    
+    InsertarItem({...Factura,infoOrdenCompra:new ObjectId(Factura.infoOrdenCompra)}, "Facturas");
     res.send({ succes: true, ok: "OK" }).status(200);
   } catch (e) {
     console.log(e);

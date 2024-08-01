@@ -4,6 +4,7 @@ const { Now } = require("../../../Utility/LocalTime");
 const { ActualizarItem } = require("../../../Component/MongoDB/ActualizarItem");
 
 const CrearDespacho = async (req, res = response) => {
+  console.log("A");
   try {
     let Despacho = req.body;
     Despacho.createdAt = Now();
@@ -28,9 +29,11 @@ const CrearDespacho = async (req, res = response) => {
           console.error(`Producto factura no encontrado para el código: ${productoEnviado.codigo}`);
       }
   });
-  console.log(Despacho.factura.metadataordencompra[0]);
+  
  
     ActualizarItem(Despacho.factura.metadataordencompra[0],"OrdenesDeCompra",Despacho.factura.metadataordencompra[0]._id);
+    Despacho.estado="Pendiente"
+    Despacho.hidden=false
     InsertarItem(Despacho, "Despacho");
     res.send({ succes: true, ok: "OK" }).status(200);
   } catch (e) {
