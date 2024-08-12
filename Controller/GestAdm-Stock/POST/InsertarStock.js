@@ -4,11 +4,15 @@ const { ObtenerItem } = require("../../../Component/MongoDB/ObtenerItem");
 const { ObjectId } = require("mongodb");
 const { Now } = require("../../../Utility/LocalTime");
 const insertarStock = async (req, res = response) => {
+  
+  console.log("test");
   try {
+    console.log("test");
     let { id, cantidad, data,detalle } = req.body;
     const objectId = new ObjectId(id);
+    console.log("test");
     let producto = await ObtenerItem({ _id: objectId }, "Productos");
-
+    console.log("test2");
     if (parseInt(cantidad) > parseInt(producto[0].stocktransito)) {
       res
         .send({
@@ -17,11 +21,13 @@ const insertarStock = async (req, res = response) => {
         })
         .status(401);
     }
+    console.log("test");
     let nuevoproducto={...producto[0]}
-    nuevoproducto.detalles.push(detalle)
     console.log(nuevoproducto);
+    nuevoproducto.Detalle.push(detalle.detalle)
+  
     
-    nuevoproducto={nuevoproducto,stocktransito:parseInt(producto[0].stocktransito)-cantidad,stock:parseInt(producto[0].stock)+parseInt(cantidad),createdAt:Now()}
+    nuevoproducto={...nuevoproducto,stocktransito:parseInt(producto[0].stocktransito)-cantidad,stock:parseInt(producto[0].stock)+parseInt(cantidad),createdAt:Now()}
     
     
     await ActualizarItem(nuevoproducto, "Productos", id);

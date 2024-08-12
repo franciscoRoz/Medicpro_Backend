@@ -5,6 +5,7 @@ const { ObtenerPermisos } = require("../Controller/AdmPersonas/GET/ObtenerPermis
 const { EliminarUsuario } = require("../Controller/AdmPersonas/POST/EliminarUser");
 const { ActualizarUsurio } = require("../Controller/AdmPersonas/POST/ActualizarUsuario");
 const { ActualizarPermiso } = require("../Controller/AdmPersonas/POST/ActualizarPermiso");
+const { ObtenerChofer } = require("../Controller/AdmPersonas/GET/ObtenerChofer");
 
 
 const router = Router();
@@ -15,5 +16,7 @@ router.get("/permisos",ObtenerPermisos)
 router.post("/eliminarususarios",EliminarUsuario) 
 router.post("/actualizarusuario",ActualizarUsurio)
 router.post("/actualizarpermiso",ActualizarPermiso)
+router.get("/obtenerconductores",ObtenerChofer)
+
 
 module.exports = router;

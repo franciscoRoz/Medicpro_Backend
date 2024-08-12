@@ -5,7 +5,7 @@ const { CrearProducto } = require("../Controller/GestAdm-Stock/POST/Crear_produc
 const { Get_productos } = require("../Controller/GestAdm-Stock/GET/Get_Productos");
 const { ActualizarProducto } = require("../Controller/GestAdm-Stock/POST/ActualizarStock");
 const { EliminarProducto } = require("../Controller/GestAdm-Stock/POST/Eliminar_Producto");
-const { Get_Stock } = require("../Controller/GestAdm-Stock/GET/Get_Stock_Producto");
+const { Get_Stock } = require("../Controller/GestAdm-Stock/GET/Get_Stock");
 
 //proveedores
 const { CrearProveedor } = require("../Controller/GestAdm-Stock/POST/Proveedor/CrearProveedor");
@@ -23,6 +23,8 @@ const { GetproductosCompletoProveedor } = require("../Controller/GestAdm-Stock/G
 const { insertarStock } = require("../Controller/GestAdm-Stock/POST/InsertarStock");
 const { CrearProductomasivo } = require("../Controller/GestAdm-Stock/POST/CrearProductoMasivo");
 const { ActualizarProducto_Item } = require("../Controller/GestAdm-Stock/POST/ActualizarStockProducto");
+const { Get_Product } = require("../Controller/GestAdm-Stock/GET/Get_product");
+
 
 
 
@@ -34,6 +36,7 @@ router.get("/producto", Get_productos);
 router.post("/actualizarproducto",ActualizarProducto)
 router.post("/eliminarproducto",EliminarProducto)
 router.get("/obtenerstock/:id",Get_Stock)
+router.get("/obtenerproducto/:id",Get_Product)
 router.post("/insertarStock",insertarStock)
 router.post("/crearproductomasivo", CrearProductomasivo);
 router.post("/actualizaritem",ActualizarProducto_Item)
