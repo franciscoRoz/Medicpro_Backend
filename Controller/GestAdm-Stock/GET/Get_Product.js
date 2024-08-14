@@ -9,7 +9,7 @@ const Get_Product = async (req, res = response) => {
     const id = req.params.id;
     console.log({"_id":new ObjectId(id)});
     let Productos=await ObtenerItem({"_id":new ObjectId(id)},"Productos")
-    console.log({"productos.Producto":id});
+   
     res.send(Productos).status(200);
   } catch (e) {
     
