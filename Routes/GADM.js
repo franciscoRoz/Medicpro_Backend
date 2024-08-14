@@ -36,7 +36,7 @@ router.get("/producto", Get_productos);
 router.post("/actualizarproducto",ActualizarProducto)
 router.post("/eliminarproducto",EliminarProducto)
 router.get("/obtenerstock/:id",Get_Stock)
-router.get("/obtenerproducto/:id",Get_Product)
+//router.get("/obtenerproducto/:id",Get_Product)
 router.post("/insertarStock",insertarStock)
 router.post("/crearproductomasivo", CrearProductomasivo);
 router.post("/actualizaritem",ActualizarProducto_Item)
