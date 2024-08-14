@@ -23,7 +23,7 @@ const { GetproductosCompletoProveedor } = require("../Controller/GestAdm-Stock/G
 const { insertarStock } = require("../Controller/GestAdm-Stock/POST/InsertarStock");
 const { CrearProductomasivo } = require("../Controller/GestAdm-Stock/POST/CrearProductoMasivo");
 const { ActualizarProducto_Item } = require("../Controller/GestAdm-Stock/POST/ActualizarStockProducto");
-const { Get_Product } = require("../Controller/GestAdm-Stock/GET/Get_product");
+//const { Get_Product } = require("../Controller/GestAdm-Stock/GET/Get_product");
 
 
 
