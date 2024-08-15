@@ -3,7 +3,7 @@ const { ObtenerItem } = require("../../../Component/MongoDB/ObtenerItem");
 const { ObjectId } = require("mongodb"); 
 
 
-const Get_Product = async (req, res = response) => {
+const Get_producto_id = async (req, res = response) => {
   try {
     console.log('a');
     const id = req.params.id;
@@ -22,5 +22,5 @@ const Get_Product = async (req, res = response) => {
 };
 
 module.exports = {
-  Get_Product,
+  Get_producto_id,
 };
