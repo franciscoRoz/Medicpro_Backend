@@ -5,7 +5,7 @@ const { ObtenerItem } = require("../../../Component/MongoDB/ObtenerItem");
 
 const Get_productos = async (req, res = response) => {
   try {
-    let Productos=await ObtenerItem({estado:'Visible'},"Productos")
+    let Productos=await ObtenerItem({hidden:false},"Productos")
     res.send(Productos).status(200);
   } catch (e) {
     

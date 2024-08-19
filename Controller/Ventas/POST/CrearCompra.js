@@ -21,7 +21,7 @@ const CrearOrdenDeCompra = async (req, res = response) => {
         // Llama a la función ObtenerItem para cada producto
 
         const nuevaInformacion = await ObtenerItem(
-          { estado: "Visible", nombre: producto.nombre },
+          { hidden:false, nombre: producto.nombre },
           "Productos"
         );
 

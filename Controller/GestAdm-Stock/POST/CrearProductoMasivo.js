@@ -6,8 +6,15 @@ const CrearProductomasivo = async (req, res = response) => {
   try {
     let Productos = req.body;
     for (let i = 0; i < Productos.length; i++) {
-
-        await InsertarItem({...Productos[i],createdAt:Now()}, "Productos");
+      let nuevoproducto={...Productos[i],createdAt:Now(),stock:1000,stockvirtual:1000,Detalle:[
+        {
+          "lote": "66332",
+          "unidades": "100000",
+          "unidadcaja": "1000",
+          "ncajas": "100.00",
+          "ubicacion": "D1B"
+        }]}
+        await InsertarItem(nuevoproducto, "Productos");
       }
 
     res.send({ succes: true, ok: "OK" }).status(200);

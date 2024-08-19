@@ -13,7 +13,7 @@ const SubirImagencloudinary = async (req, res = response) => {
     
   } catch (e) { 
     console.log(e);
-    res.send({ succes: false, estado: "No se pudo crear el usuario"}).status(400);
+    res.send({ succes: false, estado: "No se pudo guardarImagen"}).status(400);
   }
 };
 

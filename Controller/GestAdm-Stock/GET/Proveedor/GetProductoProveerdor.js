@@ -3,7 +3,7 @@ const { ObtenerItem } = require("../../../../Component/MongoDB/ObtenerItem");
 
 const Getproductosordenado = async (req, res = response) => {
   try {
-    let Productos = await ObtenerItem({ estado: "Visible" }, "Productos");
+    let Productos = await ObtenerItem({ hidden:false }, "Productos");
     const nuevoFormato = {};
 
     Productos.forEach((item) => {

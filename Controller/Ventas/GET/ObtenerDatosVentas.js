@@ -3,7 +3,7 @@ const { ObtenerItem } = require("../../../Component/MongoDB/ObtenerItem");
 
 const ObtenerdatosVentas = async (req, res = response) => {
   try {
-    let Productos = await ObtenerItem({ estado: "Visible" }, "Productos");
+    let Productos = await ObtenerItem({ hidden:false }, "Productos");
     let Usuario= await ObtenerItem({hidden:false,cargo:"Vendedor"},"Usuarios");
     let Clientes= await ObtenerItem({hidden:false},"Clientes");
     let Tipoventa= await ObtenerItem({hidden:false},"TipoVenta");
