@@ -24,7 +24,7 @@ const ObtenerPermisos = async (req, res = response) => {
           items: ["Usuarios", "Permisos y Cargos"],
         },{
           name: "Bodega",
-          icon: "https://res.cloudinary.com/dgi90lgbq/image/upload/v1710511326/rvlyhnoc7bydgmjo1ygw.png",
+          icon: "https://res.cloudinary.com/dgi90lgbq/image/upload/v1724071399/pdqgsvej8o5jv4fwnznn.png",
           items: ["Despachos","Picking", "Rutas"],
         },{
           name: "Control De Stock",
