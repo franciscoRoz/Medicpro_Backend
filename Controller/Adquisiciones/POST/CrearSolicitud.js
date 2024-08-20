@@ -79,7 +79,7 @@ const CrearSolicitud = async (req, res = response) => {
 
     try {
       let cargastock= objetoOriginal.productos.map(async(producto)=> {
-        let res = await ObtenerItem({ estado:"Visible",nombre: producto.Producto},"Productos")
+        let res = await ObtenerItem({ hidden:false,nombre: producto.Producto},"Productos")
           res[0].stocktransito=parseInt(res[0].stocktransito)+parseInt(producto.Cantidad)
         await ActualizarItem(res[0],"Productos",res[0]._id)
        }
