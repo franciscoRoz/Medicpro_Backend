@@ -39,13 +39,14 @@ const CrearSolicitud = async (req, res = response) => {
           pabonousd: objetoOriginal.pabonousd,
           banco: objetoOriginal.banco,
           swift: objetoOriginal.swift,
-          cae: objetoOriginal.cae,
+          cae: objetoOriginal.mcae,
           vdolar: objetoOriginal.vdolar
         }
       ],
       productos: arreglodeProductos,
       metadataProducto: arreglodeProductos,
       estado: "Producción",
+      mcae:objetoOriginal.mcae,
       envio: {
         shipping: "",
         dolarshipping: "",

@@ -6,7 +6,11 @@ const { Now } = require("../../../Utility/LocalTime");
 const actualizardespacho = async (req, res = response) => {
   try {
     let despacho = req.body;
+    let validacionitem=true
     despacho.updateAt=Now()
+    await despacho.productosenviados.map((item)=>validacionitem=item.cantidadcargada!==item.cantidaddespacho&&false )
+
+    
     ActualizarItem(despacho,"Despacho",despacho._id)
     res.send({ succes: true, ok:"OK" }).status(200);
   } catch (e) {
