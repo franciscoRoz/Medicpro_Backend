@@ -10,24 +10,28 @@ const CrearDespacho = async (req, res = response) => {
 
 
   try {
-    let Despacho = req.body;
+    let Despacho = req.body; 
+    
     Despacho.createdAt = Now();
     let i=0
     
       for (const productoEnviado of Despacho.productosenviados) {
         
         // Encontrar el índice del producto correspondiente en factura.factura.metadataordencompra[0].Productos por su código
-        let index = Despacho.factura.metadataordencompra[0].Productos.findIndex(producto => producto.codigo === productoEnviado.codigo);
+        let index = Despacho.factura.Productos.findIndex(producto => producto.codigo === productoEnviado.codigo);
+        
+        
         
         // Si encontramos el índice válido, actualizar la cantidad despachada
         if (index !== -1) {
+       
           // Convertir cantidaddespacho y cantidadDespachada a números y sumarlos
-          let cantidaddespacho = parseFloat(Despacho.factura.metadataordencompra[0].Productos[index].cantidaddespacho);
+          let cantidaddespacho = parseFloat(Despacho.factura.Productos[index].cantidaddespacho);
           let cantidadDespachada = parseFloat(productoEnviado.cantidadDespachada);
     
           // Verificar si ambos valores son numéricos válidos antes de sumar
           let cantidadTotal = (parseFloat(cantidaddespacho || 0) + parseFloat(cantidadDespachada || 0));
-          Despacho.factura.metadataordencompra[0].Productos[index].cantidadDespachada = cantidadTotal; // Actualiza la cantidad despachada
+          Despacho.factura.Productos[index].cantidadDespachada = cantidadTotal; // Actualiza la cantidad despachada
     
           // Realizar una llamada asíncrona
           try {
@@ -49,11 +53,12 @@ const CrearDespacho = async (req, res = response) => {
       }
     
     
+ console.log(Despacho);
  
-   ActualizarItem(Despacho.factura.metadataordencompra[0],"OrdenesDeCompra",Despacho.factura.metadataordencompra[0]._id);
+   ActualizarItem(Despacho.factura,"OrdenesDeCompra",Despacho.factura._id);
     Despacho.estado="Pendiente"
     Despacho.hidden=false
-    console.log(Despacho);
+ 
     InsertarItem(Despacho, "Despacho");
     res.send({ succes: true, ok: "OK" }).status(200);
   } catch (e) {
