@@ -20,11 +20,11 @@ const sumarMontos = (metodosdepago) => {
 const CrearFactura = async (req, res = response) => {
   try {
     let Factura = req.body;
-    let OrdenesDeCompa = await ObtenerItemOne(
+    let OrdenesDeCompra = await ObtenerItemOne(
       Factura.infoOrdenCompra,
       "OrdenesDeCompra"
     );
-    if (OrdenesDeCompa === null) {
+    if (OrdenesDeCompra === null) {
       return res
         .send({
           succes: false,
@@ -32,16 +32,20 @@ const CrearFactura = async (req, res = response) => {
         })
         .status(404);
     }
-    OrdenesDeCompa.estado = "Facturado";
-    ActualizarItem(OrdenesDeCompa, "OrdenesDeCompra", OrdenesDeCompa._id);
     const totalMonto = sumarMontos(Factura.metodosdepago);
-    console.log(parseFloat(totalMonto) === parseFloat(Factura.valortotal));
+    OrdenesDeCompra.pagado = parseInt(OrdenesDeCompra.pagado || 0) + parseInt(String(totalMonto).replace(".",""));
+    OrdenesDeCompra.estado = parseFloat(totalMonto) === parseFloat(OrdenesDeCompra.pagado)? "Facturado": "Pago Parcial";
+    ActualizarItem(OrdenesDeCompra, "OrdenesDeCompra", OrdenesDeCompra._id);
+
     parseFloat(totalMonto) === parseFloat(Factura.valortotal)
       ? (Factura.estado = "Pagado")
       : (Factura.estado = "Pago Parcial");
     Factura.createdAt = Now();
-    
-    InsertarItem({...Factura,infoOrdenCompra:new ObjectId(Factura.infoOrdenCompra)}, "Facturas");
+
+    InsertarItem(
+      { ...Factura, infoOrdenCompra: new ObjectId(Factura.infoOrdenCompra) },
+      "Facturas"
+    );
     res.send({ succes: true, ok: "OK" }).status(200);
   } catch (e) {
     console.log(e);

@@ -15,6 +15,10 @@ const ObtenerPermisos = async (req, res = response) => {
           icon: "https://res.cloudinary.com/dgi90lgbq/image/upload/v1705344193/vj8jq6tlf1ga7kagnznp.png",
           items: ["Ingreso Orden de Compra", "Adm. de Orden de Compra","Despacho Bodega","Ingresar Factura","Facturas"],
         },{
+          name: "Bodega",
+          icon: "https://res.cloudinary.com/dgi90lgbq/image/upload/v1724071399/pdqgsvej8o5jv4fwnznn.png",
+          items: ["Despachos","Picking", "Rutas"],
+        },{
           name: "Gest. Administrativa",
           icon: "https://res.cloudinary.com/dgi90lgbq/image/upload/v1710511171/g7a2lstlqmpipd9zpmba.png",
           items: ["Clientes","Productos","Proveedores"],
@@ -23,13 +27,9 @@ const ObtenerPermisos = async (req, res = response) => {
           icon: "https://res.cloudinary.com/dgi90lgbq/image/upload/v1710511326/rvlyhnoc7bydgmjo1ygw.png",
           items: ["Usuarios", "Permisos y Cargos"],
         },{
-          name: "Bodega",
-          icon: "https://res.cloudinary.com/dgi90lgbq/image/upload/v1724071399/pdqgsvej8o5jv4fwnznn.png",
-          items: ["Despachos","Picking", "Rutas"],
-        },{
           name: "Control De Stock",
           icon: "https://res.cloudinary.com/dgi90lgbq/image/upload/v1705253503/lpdkapxxg6jbfltbsewg.png",
-          items: ["Lista Productos", "Manejo de Stock"],
+          items: ["Lista Productos", "Manejo de Stock","Agregar/Retirar Productos"],
         }
       ];
     res.send(permisos).status(200);
