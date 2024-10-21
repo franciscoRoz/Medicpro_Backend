@@ -11,7 +11,7 @@ const actualizardespacho = async (req, res = response) => {
     let validacionitem=true
     despacho.updateAt=Now()
     await despacho.productosenviados.map((item)=>validacionitem=item.cantidadcargada!==item.cantidaddespacho&&false )
-   const path= await generatePDF(despacho).catch(console.error);
+   const path= await generatePDF(despacho)
 despacho.estado="Asignado"
 despacho.adjunto={Documento:path,url:path,nombre:'guia'}
     ActualizarItem(despacho,"Despacho",despacho._id)

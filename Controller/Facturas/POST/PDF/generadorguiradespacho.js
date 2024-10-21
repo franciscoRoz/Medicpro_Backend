@@ -1,84 +1,86 @@
 const path = require("path");
-const puppeteer = require("puppeteer");
+const pdf = require('html-pdf');
 const fs = require("fs");
 
-const generatePDF = async (data) => {
-  const { createdAt, factura, productosenviados,observacion } = data;
+const generatePDF = (data) => {
+  console.log(data);
+  
+  const { createdAt, factura, productosenviados, observacion } = data;
 
-  const browser = await puppeteer.launch();
-  const page = await browser.newPage();
-
+  // Leer el archivo HTML
   const htmlFilePath = path.join(__dirname, "HTML", "GuiaDespacho.html");
   let content = fs.readFileSync(htmlFilePath, "utf8");
 
+  // Reemplazar los marcadores en el HTML
   content = content
     .replace("{{norden}}", factura.ordendecompra)
-
     .replaceAll("{{fecha}}", createdAt)
-    .replace("{{RUT}}", factura.metadataordencompra[0].cliente.rut)
-    .replace("{{telefono}}",  factura.metadataordencompra[0].cliente.telefono)
+    .replace("{{RUT}}", factura.cliente.rut)
+    .replace("{{telefono}}", factura.cliente.telefono)
     .replace("{{Observaciones}}", observacion)
-    .replaceAll("{{empresa}}",  factura.metadataordencompra[0].cliente.nombre)
-    .replace("{{Direccion}}",  factura.metadataordencompra[0].cliente.direccion);
+    .replaceAll("{{empresa}}", factura.cliente.nombre)
+    .replace("{{Direccion}}", factura.cliente.direccion);
 
+  // Generar las filas de los productos
   const itemsHtml = productosenviados.map(
-      (item) => `<tr>
-          <td>${item.codigo}</td>
-          <td>${item.cantidad}</td>
-          <td>${item.nombre[0].descripcion}</td>
-          <td>Caja</td>
-          <td>${item.cajas}</td>
-          <td>${item.valorventa}</td>
-          <td>${item.valorventa*item.cantidad}</td>
-      </tr>
-  `)
-    .join("");
+    (item) => `<tr>
+        <td>${item.codigo}</td>
+        <td>${item.cantidad}</td>
+        <td>${item.nombre[0].descripcion}</td>
+        <td>Caja</td>
+        <td>${item.cajas}</td>
+        <td>${item.valorventa}</td>
+        <td>${item.valorventa * item.cantidad}</td>
+    </tr>`
+  ).join("");
 
-    const sumaTotal = productosenviados.reduce((acc, obj) => acc + parseInt(obj.valorventa)*parseInt(obj.cantidad), 0);
-const iva=parseFloat(sumaTotal)*0.19
+  const sumaTotal = productosenviados.reduce(
+    (acc, obj) => acc + parseInt(obj.valorventa) * parseInt(obj.cantidad), 0
+  );
+
+  const iva = parseFloat(sumaTotal) * 0.19;
+
+  // Reemplazar los totales en el HTML
   content = content
     .replace("{{items}}", itemsHtml)
     .replace("{{total}}", sumaTotal.toLocaleString('es-CL'))
     .replace("{{iva}}", iva.toLocaleString('es-CL'))
-    .replace("{{totalpagar}}",(parseFloat(sumaTotal)+parseFloat(iva)).toLocaleString('es-CL'));
+    .replace("{{totalpagar}}", (parseFloat(sumaTotal) + parseFloat(iva)).toLocaleString('es-CL'));
 
-  // Usa una URL directa al logo
-  const logoUrl =
-    "https://res.cloudinary.com/dgi90lgbq/image/upload/v1710632286/khrprawa0rzpjstxjiwu.jpg"; // Cambia esto a tu URL real
+  // Usar una URL para el logo
+  const logoUrl = "https://res.cloudinary.com/dgi90lgbq/image/upload/v1710632286/khrprawa0rzpjstxjiwu.jpg";
   content = content.replace("{{logoPath}}", logoUrl);
 
-  await page.setContent(content, { waitUntil: "domcontentloaded" });
-
-  await new Promise((resolve) => setTimeout(resolve, 1000));
-
+  // Leer el archivo CSS
   const cssFilePath = path.join(__dirname, "CSS", "guiadespacho.css");
-  await page.addStyleTag({ path: cssFilePath });
+  const css = fs.readFileSync(cssFilePath, "utf8");
 
-  let now = new Date();
-  now = Math.floor(now.getTime() / 1000);
-  const filePath = path.join(__dirname, '..','..','..', 'adquisiciones','POST','files', `GuiaDespacho_${now}.pdf`);
+  // Agregar el CSS al contenido HTML
+  const options = {
+    format: 'A4',
+    header: {
+      height: "10mm"
+    },
+    footer: {
+      height: "10mm"
+    },
+    "base": "file://"+__dirname + "/HTML/"
+  };
 
-console.log(filePath);
+  // Incluir el CSS en el contenido HTML
+  content = `<style>${css}</style>` + content;
 
+  const now = Math.floor(Date.now() / 1000);
+  const filePath = path.join(__dirname, '..','..','..', 'Adquisiciones','POST','files', `GuiaDespacho_${now}.pdf`);
 
-  const dir = path.dirname(filePath);
-  if (!fs.existsSync(dir)) {
-    fs.mkdirSync(dir, { recursive: true });
-  }
-
-  try {
-    await page.pdf({
-      path: filePath,
-      format: "A4",
-      printBackground: true,
-    });
-    return `GuiaDespacho_${now}.pdf`
-  } catch (error) {
-    console.error("Error generando el PDF:", error);
-  }
-
-  await browser.close();
+  // Generar el PDF
+  pdf.create(content, options).toFile(filePath, (err, res) => {
+    if (err) return console.log(err);
+    console.log(`PDF generado: ${res.filename}`);
+  });
 };
+
+
 
 module.exports = {
   generatePDF,
