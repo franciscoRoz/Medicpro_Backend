@@ -78,6 +78,7 @@ const generatePDF = (data) => {
     if (err) return console.log(err);
     console.log(`PDF generado: ${res.filename}`);
   });
+  return `GuiaDespacho_${now}.pdf`
 };
 
 
