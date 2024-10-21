@@ -67,8 +67,7 @@ const generatePDF = (data) => {
     "base": "file://"+__dirname + "/HTML/"
   };
 
-  // Incluir el CSS en el contenido HTML
-  content = `<style>${css}</style>` + content;
+  
 
   const now = Math.floor(Date.now() / 1000);
   const filePath = path.join(__dirname, '..','..','..', 'Adquisiciones','POST','files', `GuiaDespacho_${now}.pdf`);
