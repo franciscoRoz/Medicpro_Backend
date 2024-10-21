@@ -25,12 +25,12 @@ const generatePDF = (data) => {
   const itemsHtml = productosenviados.map(
     (item) => `<tr>
         <td>${item.codigo}</td>
-        <td>${item.cantidad}</td>
+        <td>${parseInt(item.cantidad).toLocaleString('es-CL')}</td>
         <td>${item.nombre[0].descripcion}</td>
         <td>Caja</td>
-        <td>${item.cajas}</td>
-        <td>${item.valorventa}</td>
-        <td>${item.valorventa * item.cantidad}</td>
+        <td>${parseInt(item.cajas).toLocaleString('es-CL')}</td>
+        <td>${parseInt(item.valorventa).toLocaleString('es-CL')}</td>
+        <td>${(item.valorventa * item.cantidad).toLocaleString('es-CL')}</td>
     </tr>`
   ).join("");
 
@@ -51,6 +51,9 @@ const generatePDF = (data) => {
   const logoUrl = "https://res.cloudinary.com/dgi90lgbq/image/upload/v1710632286/khrprawa0rzpjstxjiwu.jpg";
   content = content.replace("{{logoPath}}", logoUrl);
 
+  // Leer el archivo CSS
+  const cssFilePath = path.join(__dirname, "HTML", "guiadespacho.css");
+  const css = fs.readFileSync(cssFilePath, "utf8");
 
   // Agregar el CSS al contenido HTML
   const options = {
@@ -64,7 +67,8 @@ const generatePDF = (data) => {
     "base": "file://"+__dirname + "/HTML/"
   };
 
-  
+  // Incluir el CSS en el contenido HTML
+  content = `<style>${css}</style>` + content;
 
   const now = Math.floor(Date.now() / 1000);
   const filePath = path.join(__dirname, '..','..','..', 'Adquisiciones','POST','files', `GuiaDespacho_${now}.pdf`);
