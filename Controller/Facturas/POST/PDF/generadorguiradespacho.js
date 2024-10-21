@@ -51,9 +51,6 @@ const generatePDF = (data) => {
   const logoUrl = "https://res.cloudinary.com/dgi90lgbq/image/upload/v1710632286/khrprawa0rzpjstxjiwu.jpg";
   content = content.replace("{{logoPath}}", logoUrl);
 
-  // Leer el archivo CSS
-  const cssFilePath = path.join(__dirname, "CSS", "guiadespacho.css");
-  const css = fs.readFileSync(cssFilePath, "utf8");
 
   // Agregar el CSS al contenido HTML
   const options = {
