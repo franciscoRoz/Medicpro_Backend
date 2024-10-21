@@ -67,14 +67,21 @@ const CrearSolicitud = async (req, res = response) => {
 
       },
       documentos:[
-      {titulo:"Importacion",nombre:"",url:""},
-      {titulo:"Aduana",nombre:"",url:""},
-      {titulo:"Declaracion de ingreso",nombre:"",url:""},
-      {titulo:"TGR",nombre:"",url:""},
-      {titulo:"Puertuario",nombre:"",url:""},
-      {titulo:"Transporte",nombre:"",url:""},
-      {titulo:"Documento1",nombre:"",url:""},
-      {titulo:"Documento2",nombre:"",url:""}]
+      {titulo:"Proforma Invoice",nombre:"",url:""},
+      {titulo:"Bill of Lading",nombre:"",url:""},
+      {titulo:"Comercial Invoice",nombre:"",url:""},
+      {titulo:"Packing List",nombre:"",url:""},
+      {titulo:"Certificado de Origen",nombre:"",url:""},
+      {titulo:"Factura Shipping",nombre:"",url:""},
+      {titulo:"Factura Shipping Gastos",nombre:"",url:""},
+      {titulo:"Seguro Container",nombre:"",url:""},
+      {titulo:"CDA",nombre:"",url:""},
+      {titulo:"Provisiones de Fondos Ag Aduana",nombre:"",url:""},
+      {titulo:"Factura Agencia Aduana",nombre:"",url:""},
+      {titulo:"Comprobante TGR",nombre:"",url:""},
+      {titulo:"Declaración de ingreso",nombre:"",url:""},
+      {titulo:"Factura Extra Gastos adicionales",nombre:"",url:""}
+    ]
     };
   
 

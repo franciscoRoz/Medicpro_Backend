@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orden de Compra</title>
+    <link rel="stylesheet" href="pdf.css">
+</head>
+<body>
+    <div class="container">
+        <hr />
+        <div class='header'>
+            <img src='{{logoPath}}' alt="Logo" style="width: 150px; height: auto;" />
+            <div class='orden'>
+                <h2>Orden de Compra Nº {{norden}}</h2>
+                <h3>SOLICITADO POR IMPORTADORA Y COMERCIALIZADORA MEDICPRO LIMITADA</h3>
+            </div>
+        </div>
+        <hr />
+        <br />
+        <p><strong>Fecha : </strong> {{fecha}}</p>
+        <div class='datosempresa'>
+            <p><strong>R.U.T : </strong> {{RUT}}</p>
+            <p><strong>Teléfono : </strong> +569{{telefono}}</p>
+        </div>
+        <p><strong>Señor(es) : </strong> {{empresa}}</p>
+        <p><strong>Dirección : </strong> {{Direccion}}</p>
+        <p class="info"><strong>Estimado(a) Señor(a),<br/> Agradecemos su compra y entregamos lo siguiente</strong></p>
+        <table class='tabladetalle'>
+            <thead>
+                <tr class='header-table'>
+                    <th>Código</th>
+                    <th>Cantidad</th>
+                    <th>Descripción</th>
+                    <th>Unidad</th>
+                    <th>Ncajas</th>
+                    <th>Precio Unitario ($)</th>
+                    <th>Precio Total</th>
+                </tr>
+            </thead>
+            <tbody>
+              {{items}}
+            </tbody>
+        </table>
+        <table>
+            <tr>
+                <td>Fecha Entrega : {{fecha}}</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td class='total'>TOTAL NETO</td>
+                <td class='total'>{{total}}</td>
+            </tr>
+            <tr>
+                <td>Observaciones : {{Observaciones}}</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td class='total'>IVA</td>
+                <td class='total'>{{iva}}</td>
+            </tr>
+            <tr>
+                <td>Solicitado por: {{empresa}}</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td class='total'>TOTAL A PAGAR</td>
+                <td class='total'>{{totalpagar}}</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </table>
+        <p class="info"><strong>Facturar A:</strong></p>
+        <ul>
+            <li>Empresa/Rut:IMPORTADORA Y COMERCIALIZADORA MEDICPRO LIMITADA - 76390967-0</li>
+            <li>Dirección:GUARDIA VIEJA 181 OFICINA 506</li>
+           
+        </ul>
+        <p class="info"><strong>Condiciones Generales:</strong></p>
+        <ul class='decorator'>
+            <li>Indicar Nº de Orden de compra en factura.</li>
+            <li>El pago será nominativo a nombre del proveedor.</li>
+            <li>Las OC. en US$ se pagarán al dólar observado del día de facturación.</li>
+            <li>Si esta orden le llega por mail, le solicitamos verificarla con la gerencia.</li>
+        </ul>
+    </div>
+</body>
+</html>
